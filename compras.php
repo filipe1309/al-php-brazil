@@ -26,6 +26,7 @@
                                                     <th class='text-center'>Ida</th>
                                                     <th class='text-center'>Volta</th>
                                                     <th class='text-center'>Preço</th>
+                                                    <th class='text-center'>Email</th>
                                                     <th class='text-center'>CEP</th>
                                                 </tr>
                                             </thead>
@@ -48,6 +49,9 @@
                                                     </td>
                                                     <td class='text-center'>
                                                         <?php echo $viagem->preco; ?>
+                                                    </td>
+                                                    <td class='text-center'>
+                                                        <?php echo $cliente->email; ?>
                                                     </td>
                                                     <td class='text-center'>
                                                         <?php echo $cliente->cep; ?>

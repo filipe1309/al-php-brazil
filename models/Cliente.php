@@ -13,7 +13,7 @@ class Cliente
     public $cidade;
     public $uf;
 
-    
+
     public function __construct(
         $nome,
         $cpf_cnpj,
@@ -36,5 +36,36 @@ class Cliente
         $this->numero = $numero;
         $this->cidade = $cidade;
         $this->uf = $uf;
+
+        if (!$this->cepValido($cep)) throw new Exception('CEP no formato invalido');
+        if (!$this->telefoneValido($telefone)) throw new Exception('Telefone no formato invalido');
+        if (!$this->emailValido($email)) throw new Exception('Email no formato invalido');
+    }
+
+    public function cepValido($cep)
+    {
+        if (!strlen($cep) == 10) {
+            return false;
+        }
+
+        //81.510-320
+        $regexCep = "/^[0-9]{2}\.[0-9]{3}\-[0-9]{3}$/";
+        return preg_match($regexCep, $cep);
+    }
+
+    public function telefoneValido($telefone)
+    {
+        if (!strlen($telefone) == 15) {
+            return false;
+        }
+
+        //(99) 99999-9999
+        $regexTelefone = "/^\([0-9]{2}\)[0-9]{5}\-[0-9]{4}$/";
+        return preg_match($regexTelefone, str_replace(' ', '', $telefone));
+    }
+
+    public function emailValido($email)
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 }
