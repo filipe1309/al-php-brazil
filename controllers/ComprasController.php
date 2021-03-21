@@ -23,26 +23,31 @@ if ($_POST) {
     $criancas = $_POST['criancas'];
     $preco = '1.500,00';
 
-    $cliente = new Cliente(
-        $nome,
-        $cpf_cnpj,
-        $telefone,
-        $email,
-        $cep,
-        $endereco,
-        $bairro,
-        $numero,
-        $cidade,
-        $uf
-    );
-    $viagem = new Viagem(
-        $origem,
-        $destino,
-        $data_ida,
-        $data_volta,
-        $classe,
-        $adultos,
-        $criancas,
-        $preco
-    );
+    try {
+        $cliente = new Cliente(
+            $nome,
+            $cpf_cnpj,
+            $telefone,
+            $email,
+            $cep,
+            $endereco,
+            $bairro,
+            $numero,
+            $cidade,
+            $uf
+        );
+        $viagem = new Viagem(
+            $origem,
+            $destino,
+            $data_ida,
+            $data_volta,
+            $classe,
+            $adultos,
+            $criancas,
+            $preco
+        );
+    } catch (Exception $e) {
+        echo "<script> alert('" . $e->getMessage() . "'); </script>";
+        echo '<script> history.back(); </script>';
+    }
 }

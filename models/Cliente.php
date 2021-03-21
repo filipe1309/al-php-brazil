@@ -13,7 +13,7 @@ class Cliente
     public $cidade;
     public $uf;
 
-    
+
     public function __construct(
         $nome,
         $cpf_cnpj,
@@ -36,5 +36,18 @@ class Cliente
         $this->numero = $numero;
         $this->cidade = $cidade;
         $this->uf = $uf;
+
+        if (!$this->cepValido($cep)) throw new Exception('CEP no formato invalido');
+    }
+
+    public function cepValido($cep)
+    {
+        if (!strlen($cep) == 10) {
+            return false;
+        }
+
+        //81.510-320
+        $regexCep = "/^[0-9]{2}\.[0-9]{3}\-[0-9]{3}$/";
+        return preg_match($regexCep, $cep);
     }
 }
