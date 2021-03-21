@@ -38,6 +38,7 @@ class Cliente
         $this->uf = $uf;
 
         if (!$this->cepValido($cep)) throw new Exception('CEP no formato invalido');
+        if (!$this->telefoneValido($telefone)) throw new Exception('Telefone no formato invalido');
     }
 
     public function cepValido($cep)
@@ -49,5 +50,16 @@ class Cliente
         //81.510-320
         $regexCep = "/^[0-9]{2}\.[0-9]{3}\-[0-9]{3}$/";
         return preg_match($regexCep, $cep);
+    }
+
+    public function telefoneValido($telefone)
+    {
+        if (!strlen($telefone) == 15) {
+            return false;
+        }
+
+        //(99) 99999-9999
+        $regexTelefone = "/^\([0-9]{2}\)[0-9]{5}\-[0-9]{4}$/";
+        return preg_match($regexTelefone, str_replace(' ', '', $telefone));
     }
 }
