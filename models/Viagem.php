@@ -21,8 +21,9 @@ class Viagem
         $criancas,
         $preco
     ) {
-        if (!$this->dataValida($data_ida)) throw new Exception('Data de ida invalida');
+        if (!$this->dataValida($data_ida)) throw new Exception('Data de ida invalida: ' . $data_ida);
         if (!$this->dataValida($data_volta)) throw new Exception('Data de volta invalida');
+        if (!$this->precoValido($preco)) throw new Exception('Preco invalida');
 
         $this->origem = $origem;
         $this->destino = $destino;
@@ -39,7 +40,7 @@ class Viagem
         //2021-03-21
         if (strlen($data) != 10) return false;
 
-        if (strpos($data, '-')) return false;
+        if (!strpos($data, '-')) return false;
 
         $partes = explode('-', $data);
 
@@ -55,5 +56,11 @@ class Viagem
         if (strtotime($data) < strtotime($dataAtual)) return false;
 
         return true;
+    }
+
+    public function precoValido($preco)
+    {
+        $regexPreco = "/^[0-9]{1,3}([.][0-9]{3})*[,][0-9]{2}$/";
+        return preg_match($regexPreco, $preco);
     }
 }
