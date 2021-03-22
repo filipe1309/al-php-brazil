@@ -2,7 +2,6 @@
 
 class ValidadorCPF
 {
-
     public function ehValido($cpf)
     {
         if (!self::estaNoformatoDeCpf($cpf)) return false;

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'ValidadorCPF.php';
+require_once 'ValidadorCNPJ.php';
 class Cliente
 {
     public $nome;
@@ -39,11 +40,17 @@ class Cliente
         $this->uf = $uf;
 
         $validadorCpf = new ValidadorCPF();
+        $validadorCnpj = new ValidadorCNPJ();
 
         if (!$this->cepValido($cep)) throw new Exception('CEP no formato invalido');
         if (!$this->telefoneValido($telefone)) throw new Exception('Telefone no formato invalido');
         if (!$this->emailValido($email)) throw new Exception('Email no formato invalido');
-        if (!$validadorCpf->ehValido($cpf_cnpj)) throw new Exception('CPF no formato invalido');
+
+        if (strlen($cpf_cnpj) > 14) {
+            if (!$validadorCnpj->ehValido($cpf_cnpj)) throw new Exception('CNPJ no formato invalido');
+        } else {
+            if (!$validadorCpf->ehValido($cpf_cnpj)) throw new Exception('CPF no formato invalido');
+        }
     }
 
     public function cepValido($cep)
