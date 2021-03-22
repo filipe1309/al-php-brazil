@@ -32,7 +32,7 @@ class Viagem
         $this->classe = $classe;
         $this->adultos = $adultos;
         $this->criancas = $criancas;
-        $this->preco = $preco;
+        $this->preco = $this->convertePreco($preco);
     }
 
     public function dataValida($data)
@@ -62,5 +62,12 @@ class Viagem
     {
         $regexPreco = "/^[0-9]{1,3}([.][0-9]{3})*[,][0-9]{2}$/";
         return preg_match($regexPreco, $preco);
+    }
+
+    public function convertePreco($preco)
+    {
+        $numeroValido = str_replace(',', '.', $preco);
+        $numeroValido = str_replace('.', '', substr($numeroValido, 0, -3)) . substr($numeroValido, -3);
+        return doubleval($numeroValido);
     }
 }

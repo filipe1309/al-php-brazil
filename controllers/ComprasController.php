@@ -21,7 +21,7 @@ if ($_POST) {
     $classe = $_POST['classe'];
     $adultos = $_POST['adultos'];
     $criancas = $_POST['criancas'];
-    $preco = '1.500,00';
+    $preco = '1.500,35';
 
     try {
         $cliente = new Cliente(

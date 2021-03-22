@@ -29,10 +29,10 @@ class Cliente
         $uf
     ) {
         $this->nome = $nome;
-        $this->cpf_cnpj = $cpf_cnpj;
-        $this->telefone = $telefone;
+        $this->cpf_cnpj = $this->removeFormatacao($cpf_cnpj);
+        $this->telefone = $this->removeFormatacao($telefone);
         $this->email = $email;
-        $this->cep = $cep;
+        $this->cep = $this->removeFormatacao($cep);
         $this->endereco = $endereco;
         $this->bairro = $bairro;
         $this->numero = $numero;
@@ -78,5 +78,10 @@ class Cliente
     public function emailValido($email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    public function removeFormatacao($info)
+    {
+        return str_replace(['.', '-', '/', '(', ')', ' '], '', $info);
     }
 }
