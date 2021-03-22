@@ -21,6 +21,9 @@ class Viagem
         $criancas,
         $preco
     ) {
+        if (!$this->dataValida($data_ida)) throw new Exception('Data de ida invalida');
+        if (!$this->dataValida($data_volta)) throw new Exception('Data de volta invalida');
+
         $this->origem = $origem;
         $this->destino = $destino;
         $this->data_ida = $data_ida;
@@ -29,5 +32,28 @@ class Viagem
         $this->adultos = $adultos;
         $this->criancas = $criancas;
         $this->preco = $preco;
+    }
+
+    public function dataValida($data)
+    {
+        //2021-03-21
+        if (strlen($data) != 10) return false;
+
+        if (strpos($data, '-')) return false;
+
+        $partes = explode('-', $data);
+
+        $ano = $partes[0];
+        $mes = $partes[1];
+        $dia = $partes[2];
+
+        if (strlen($ano) < 4) return false;
+
+        if (!checkdate($mes, $dia, $ano)) return false;
+
+        $dataAtual = date('Y-m-d');
+        if (strtotime($data) < strtotime($dataAtual)) return false;
+
+        return true;
     }
 }
